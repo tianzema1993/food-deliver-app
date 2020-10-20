@@ -271,6 +271,12 @@ class OrderCard extends React.Component {
                   </IconButton>
                 </Box>
               ) : null}
+              {this.props.userType === "restaurant" && this.props.order.endTime !== null && this.props.order.comment !== null ? (
+                <Box component="fieldset" mb={3} borderColor="transparent">
+                  <Rating name="read-only" value={this.props.order.comment.rating} readOnly />
+                  <Typography color="textSecondary" variant="body2"><i>{this.props.order.comment.content}</i></Typography>
+                </Box>
+              ) : null}
             </CardContent>
           </Collapse>
         </Card>
