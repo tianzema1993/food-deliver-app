@@ -62,7 +62,7 @@ public class LoadDatabase implements CommandLineRunner {
     restaurantInfo1.setTag3("hamburger");
 
     RestaurantInfo restaurantInfo2 = new RestaurantInfo();
-    restaurantInfo2.setOpen(false);
+    restaurantInfo2.setOpen(true);
     restaurantInfo2.setRestaurantName("PizzaHut");
     restaurantInfo2.setDescription("We serve pizza and salad");
     restaurantInfo2.setImageUrl(
@@ -70,6 +70,17 @@ public class LoadDatabase implements CommandLineRunner {
     restaurantInfo2.setTag1("italian");
     restaurantInfo2.setTag2("healthy");
     restaurantInfo2.setTag3("party");
+
+    RestaurantInfo restaurantInfo3 = new RestaurantInfo();
+    restaurantInfo3.setOpen(false);
+    restaurantInfo3.setRestaurantName("Water Bar");
+    restaurantInfo3.setDescription("We serve all kind of drinks");
+    restaurantInfo3.setImageUrl(
+        "https://scx2.b-cdn.net/gfx/news/hires/2019/water.jpg"
+    );
+    restaurantInfo3.setTag1("juice");
+    restaurantInfo3.setTag2("beer");
+    restaurantInfo3.setTag3("drink");
 
     Dish dish1 = new Dish();
     dish1.setDishName("Big Mac");
@@ -106,6 +117,11 @@ public class LoadDatabase implements CommandLineRunner {
         "https://www.inspiredtaste.net/wp-content/uploads/2018/10/Homemade-Vegetable-Soup-Recipe-2-1200.jpg");
     dish6.setPrice(7.5);
 
+    Dish dish7 = new Dish();
+    dish7.setDishName("Orange Juice");
+    dish7.setImageUrl("https://thumbs.dreamstime.com/b/fresh-orange-juice-vitamins-health-table-fruits-jucie-78350628.jpg");
+    dish7.setPrice(5);
+
     List<Dish> dishes1 = new ArrayList<>();
     dishes1.add(dish1);
     dishes1.add(dish2);
@@ -116,13 +132,18 @@ public class LoadDatabase implements CommandLineRunner {
     dishes2.add(dish5);
     dishes2.add(dish6);
 
+    List<Dish> dishes3 = new ArrayList<>();
+    dishes3.add(dish7);
+
     restaurantRepository.deleteAll();
     Restaurant restaurant1 = new Restaurant("mcd", passwordService.generatePassword("12345"),
         "1234567890", "9000 Holman Rd NW", "Seattle", "WA", "98117", restaurantInfo1, dishes1);
     Restaurant restaurant2 = new Restaurant("pizza", passwordService.generatePassword("12345"),
         "1234567890", "23830 Hwy 99 Ste 118", "Edmonds", "WA", "98026", restaurantInfo2, dishes2);
+    Restaurant restaurant3 = new Restaurant("bar", passwordService.generatePassword("12345"), "1234567890", "309 N 36th St", "Seattle", "WA", "98103", restaurantInfo3, dishes3);
     restaurantRepository.save(restaurant1);
     restaurantRepository.save(restaurant2);
+    restaurantRepository.save(restaurant3);
 
     orderRepository.deleteAll();
     Order order1 = new Order();
@@ -155,7 +176,21 @@ public class LoadDatabase implements CommandLineRunner {
     order2.setPrice(price2);
     Comment comment2 = new Comment(2, "the food is so expensive");
     order2.setComment(comment2);
+    Order order3 = new Order();
+    order3.setCustomerId(customer1.getId());
+    order3.setDriverId(driver1.getId());
+    order3.setRestaurantId(restaurant3.getId());
+    order3.setStartTime(LocalDateTime.of(2020, 1, 1, 19, 30));
+    order3.setDelivery(true);
+    order3.setEndTime(LocalDateTime.of(2020, 1, 1, 20, 0));
+    order3.setContent(dishes3);
+    double price3 = 0;
+    for (Dish dish : dishes3) {
+      price3 += dish.getPrice();
+    }
+    order3.setPrice(price3);
     orderRepository.save(order1);
     orderRepository.save(order2);
+    orderRepository.save(order3);
   }
 }
