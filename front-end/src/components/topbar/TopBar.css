@@ -1,0 +1,13 @@
+.topbar {
+  height: 60;
+  justify-content: 'center';
+}
+
+.dialog {
+  padding: 10px;
+  text-align: center;
+}
+
+.button {
+  width: 25%;
+}
