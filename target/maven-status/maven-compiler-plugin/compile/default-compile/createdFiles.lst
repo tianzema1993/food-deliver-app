@@ -1,3 +1,4 @@
+com/cs5500/NEUEat/exception/CommentAlreadyExistException.class
 com/cs5500/NEUEat/model/Driver.class
 com/cs5500/NEUEat/exception/OrderAlreadyCheckoutException.class
 com/cs5500/NEUEat/controller/OrderController.class
@@ -18,9 +19,9 @@ com/cs5500/NEUEat/exception/OrderAlreadyFinishException.class
 com/cs5500/NEUEat/exception/OrderNotExistException.class
 com/cs5500/NEUEat/exception/UserAlreadyExistException.class
 com/cs5500/NEUEat/model/Customer.class
-com/cs5500/NEUEat/LoadDatabase.class
 com/cs5500/NEUEat/model/RestaurantInfo.class
 com/cs5500/NEUEat/service/PasswordService.class
+com/cs5500/NEUEat/model/Comment.class
 com/cs5500/NEUEat/repository/RestaurantRepository.class
 com/cs5500/NEUEat/service/RestaurantServiceImpl.class
 com/cs5500/NEUEat/exception/OrderNotFinishedException.class

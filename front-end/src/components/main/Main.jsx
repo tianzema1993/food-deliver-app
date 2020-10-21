@@ -5,7 +5,7 @@ import Register from '../register/Register';
 import CustomerView from '../customerView/CustomerView';
 import DriverView from '../driverView/DriverView';
 import RestaurantView from '../restaurantView/RestaurantView';
-import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
+import { HashRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import {
   Grid
 } from '@material-ui/core';
