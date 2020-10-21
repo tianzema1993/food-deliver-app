@@ -56,6 +56,12 @@ class OrderCard extends React.Component {
     this.orderInfo();
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.order !== this.props.order) {
+      this.props.getOrders();
+    }
+  }
+
   handleChange(content) {
     this.setState(content);
   }
