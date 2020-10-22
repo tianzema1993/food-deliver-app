@@ -41,7 +41,7 @@ class ShopCart extends React.Component {
             <Grid item key={order.id} xs={5}>
               <OrderCard order={order} userType={this.props.currentUser.type} getOrders={this.getCartOrders} />
             </Grid>
-          )) : <Typography variant="h5"><i>Your Shpping Cart is Empty...</i></Typography>}
+          )) : <Typography variant="h5"><i>Your Shopping Cart is Empty...</i></Typography>}
           {this.state.orders.length > 0 ? (
             <Grid item xs={12}>
               <div className="checkoutBox">
