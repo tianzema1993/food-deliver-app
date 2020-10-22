@@ -18,7 +18,7 @@ class DriverBar extends React.Component {
         <List component="nav">
           <Link to={"/driver/home"} className="link">
             <ListItem>
-              <ListItemText primary={"All pending orders"} />
+              <ListItemText primary={"All Pending Orders"} />
             </ListItem>
             <Divider />
           </Link>
