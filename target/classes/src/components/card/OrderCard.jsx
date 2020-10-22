@@ -16,6 +16,7 @@ import {
   TextField
       } from "@material-ui/core";
 import Rating from '@material-ui/lab/Rating';
+import AddCircleOutlineRoundedIcon from '@material-ui/icons/AddCircleOutlineRounded';
 import DeleteIcon from '@material-ui/icons/Delete';
 import "./Card.css";
 import MapCard from "./MapCard";
@@ -265,14 +266,9 @@ class OrderCard extends React.Component {
                     value={this.state.comment}
                     onChange={event => this.handleChange({comment: event.target.value})}
                   />
-                  <Button
-                    variant="outlined"
-                    color="primary"
-                    onClick={this.addComment}
-                    disabled={this.state.rating === 0 || this.state.comment === ""}
-                  >
-                    <b>Add Comment</b>
-                  </Button>
+                  <IconButton onClick={this.addComment}>
+                    <AddCircleOutlineRoundedIcon />
+                  </IconButton>
                 </Box>
               ) : null}
               {this.props.userType === "restaurant" && this.props.order.endTime !== null && this.props.order.comment !== null ? (

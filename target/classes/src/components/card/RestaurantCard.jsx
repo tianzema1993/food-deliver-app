@@ -70,7 +70,7 @@ class RestaurantCard extends React.Component {
             </Avatar>
           }
           action={
-            this.props.restaurantInfo.open ? (<Typography color="primary">Open</Typography>) : <Typography color="secondary">Closed</Typography>}
+            this.props.restaurantInfo.open ? (null) : <Typography color="secondary">Closed</Typography>}
             titleTypographyProps={{variant:'h5'}}
             title={this.props.restaurantInfo.restaurantName}
         />
@@ -92,31 +92,29 @@ class RestaurantCard extends React.Component {
       <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
         <CardContent>
           {this.state.comments.length > 0 ? 
-            <Grid container justify="center">
+            <Grid container>
               <Box component="fieldset" mb={3} borderColor="transparent">
                 <Rating name="read-only" value={this.state.comments[this.state.activeStep].rating} readOnly />
                 <Typography color="textSecondary" variant="body2"><i>{this.state.comments[this.state.activeStep].content}</i></Typography>
               </Box>
-              <Grid item xs={12}>
-                <MobileStepper 
-                  steps={this.state.maxSteps}
-                  position="static"
-                  variant="text"
-                  activeStep={this.state.activeStep}
-                  nextButton={
-                    <Button size="small" onClick={this.handleNext} disabled={this.state.activeStep === this.state.maxSteps - 1}>
-                      Next
-                      <KeyboardArrowRight />
-                    </Button>
-                  }
-                  backButton={
-                    <Button size="small" onClick={this.handleBack} disabled={this.state.activeStep === 0}>
-                      <KeyboardArrowLeft />
-                      Back
-                    </Button>
-                  }
-                /> 
-              </Grid>
+              <MobileStepper 
+              steps={this.state.maxSteps}
+              position="static"
+              variant="text"
+              activeStep={this.state.activeStep}
+              nextButton={
+                <Button size="small" onClick={this.handleNext} disabled={this.state.activeStep === this.state.maxSteps - 1}>
+                  Next
+                  <KeyboardArrowRight />
+                </Button>
+              }
+              backButton={
+                <Button size="small" onClick={this.handleBack} disabled={this.state.activeStep === 0}>
+                  <KeyboardArrowLeft />
+                  Back
+                </Button>
+              }
+            /> 
             </Grid> 
             : <Typography variant="body1" color="primary"><i>This restaurant doesn't have any comments</i></Typography>}
         </CardContent>

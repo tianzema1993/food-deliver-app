@@ -11,10 +11,6 @@
 }
 
 .photoCardImage {
-  width: 99%;
+  width: 100%;
   height: 300px;
-}
-
-.photoCardImage:hover {
-  box-shadow: 0 0 2px 2px rgba(0, 140, 186, 0.5);
 }
