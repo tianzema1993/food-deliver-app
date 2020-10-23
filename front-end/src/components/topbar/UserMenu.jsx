@@ -189,16 +189,22 @@ class UserMenu extends React.Component {
         </Menu>
         <Dialog open={this.state.warnOpen} onClose={this.closeWarn}>
           <div className="dialog">
-            <Typography variant="h6">Warn: Do you want to drop your account?</Typography>
+            <Typography variant="h6" color="error">Warn!!!</Typography>
+            <Typography variant="h6">Do you want to drop your account?</Typography>
             <Typography color="textSecondary"><i>(This will erase your order information as well)</i></Typography>
             <Typography variant="body1" color="error">
                 {this.state.dropFailed}
               </Typography>
             <br />
-            <Button size="small" variant="outlined" color="secondary" onClick={this.dropAccount} className="button">Yes</Button>
-            <br />
-            <br />
-            <Button size="small" variant="outlined" onClick={this.closeWarn} className="button">No</Button>
+            <Button type="submit"
+                fullWidth
+                variant="contained"
+                color="secondary" 
+                onClick={this.dropAccount} 
+            >
+              Yes
+            </Button>
+            <Button onClick={this.closeWarn}>No</Button>
           </div>
         </Dialog>
         <Dialog open={this.state.passwordDialogOpen} onClose={this.closePasswordDialog}>
