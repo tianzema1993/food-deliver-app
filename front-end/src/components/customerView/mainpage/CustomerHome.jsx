@@ -30,7 +30,7 @@ class CustomerHome extends React.Component {
     if (query !== undefined && query !== "") {
       axios.get("/api/restaurant/search/" + query).then(
         response => {
-          this.setState({searchText: "", restaurants: response.data})
+          this.setState({restaurants: response.data})
         }
       ).catch(err => console.log(err));
     } else {
