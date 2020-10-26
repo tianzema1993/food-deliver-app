@@ -4,7 +4,7 @@ The App enables users to simulate among customer, driver and restaurant in a foo
 
 Login Page
 
-<img width="500" height="500" src="image/login.png"/>
+<img width="750" height="500" src="image/login.png"/>
 
 Register Page
 
