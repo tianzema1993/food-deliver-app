@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.cs5500.NEUEat.NeuEatApplicationTests
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 4.919 s - in com.cs5500.NEUEat.NeuEatApplicationTests
