@@ -43,6 +43,7 @@ public class SearchEngine {
 
   public void remove(String word, String restaurantId) {
     Node cur = root;
+    if (word == null) return;
     for (int i = 0; i < word.length(); i++) {
       char c = Character.toLowerCase(word.charAt(i));
       if(c == ' ') continue;
