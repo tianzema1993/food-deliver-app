@@ -7,10 +7,12 @@
 //import com.cs5500.NEUEat.model.Order;
 //import com.cs5500.NEUEat.model.Restaurant;
 //import com.cs5500.NEUEat.model.RestaurantInfo;
+//import com.cs5500.NEUEat.model.SearchEngine;
 //import com.cs5500.NEUEat.repository.CustomerRepository;
 //import com.cs5500.NEUEat.repository.DriverRepository;
 //import com.cs5500.NEUEat.repository.OrderRepository;
 //import com.cs5500.NEUEat.repository.RestaurantRepository;
+//import com.cs5500.NEUEat.repository.SearchEngineRepository;
 //import com.cs5500.NEUEat.service.PasswordService;
 //import java.time.LocalDateTime;
 //import java.util.ArrayList;
@@ -33,6 +35,8 @@
 //  private RestaurantRepository restaurantRepository;
 //  @Autowired
 //  private OrderRepository orderRepository;
+//  @Autowired
+//  private SearchEngineRepository searchEngineRepository;
 //  PasswordService passwordService = new PasswordService();
 //
 //  public static void main(String[] args) {
@@ -145,6 +149,32 @@
 //    restaurantRepository.save(restaurant2);
 //    restaurantRepository.save(restaurant3);
 //
+//    searchEngineRepository.deleteAll();
+//    SearchEngine searchEngine = new SearchEngine();
+//    String id1 = restaurant1.getId();
+//    searchEngine.add(restaurantInfo1.getRestaurantName(), id1);
+//    searchEngine.add(restaurantInfo1.getTag1(), id1);
+//    searchEngine.add(restaurantInfo1.getTag2(), id1);
+//    searchEngine.add(restaurantInfo1.getTag3(), id1);
+//    searchEngine.add(dish1.getDishName(), id1);
+//    searchEngine.add(dish2.getDishName(), id1);
+//    searchEngine.add(dish3.getDishName(), id1);
+//    String id2 = restaurant2.getId();
+//    searchEngine.add(restaurantInfo2.getRestaurantName(), id2);
+//    searchEngine.add(restaurantInfo2.getTag1(), id2);
+//    searchEngine.add(restaurantInfo2.getTag2(), id2);
+//    searchEngine.add(restaurantInfo2.getTag3(), id2);
+//    searchEngine.add(dish4.getDishName(), id2);
+//    searchEngine.add(dish5.getDishName(), id2);
+//    searchEngine.add(dish6.getDishName(), id2);
+//    String id3 = restaurant3.getId();
+//    searchEngine.add(restaurantInfo3.getRestaurantName(), id3);
+//    searchEngine.add(restaurantInfo3.getTag1(), id3);
+//    searchEngine.add(restaurantInfo3.getTag2(), id3);
+//    searchEngine.add(restaurantInfo3.getTag3(), id3);
+//    searchEngine.add(dish7.getDishName(), id3);
+//    searchEngineRepository.save(searchEngine);
+//
 //    orderRepository.deleteAll();
 //    Order order1 = new Order();
 //    order1.setCustomerId(customer1.getId());
@@ -189,8 +219,24 @@
 //      price3 += dish.getPrice();
 //    }
 //    order3.setPrice(price3);
+//    Order order4 = new Order();
+//    order4.setCustomerId(customer1.getId());
+//    order4.setDriverId(driver1.getId());
+//    order4.setRestaurantId(restaurant2.getId());
+//    order4.setStartTime(LocalDateTime.of(2020, 2, 3, 11, 25));
+//    order4.setDelivery(true);
+//    order4.setEndTime(LocalDateTime.of(2020, 2, 3, 13, 0));
+//    order4.setContent(dishes2);
+//    double price4 = 0;
+//    for (Dish dish : dishes2) {
+//      price4 += dish.getPrice();
+//    }
+//    order4.setPrice(price4);
+//    Comment comment3 = new Comment(5, "The delivery is very fast!!!");
+//    order4.setComment(comment3);
 //    orderRepository.save(order1);
 //    orderRepository.save(order2);
 //    orderRepository.save(order3);
+//    orderRepository.save(order4);
 //  }
 //}

@@ -8,9 +8,6 @@ import java.util.List;
 
 public interface RestaurantService {
 
-  // Search for restaurants whose name, dish or tag matches the query
-  List<Restaurant> getRestaurants(String query);
-
   int addDish(String id, Dish dish);
 
   int removeDish(String id, Dish dish);

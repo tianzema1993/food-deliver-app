@@ -72,7 +72,7 @@ class CustomerHome extends React.Component {
           <Grid item xs={12}>
             <div className="cardbody">
               <Grid container justify="space-evenly" spacing={2}>
-                {this.state.restaurants ? this.state.restaurants.map(restaurant => (
+                {this.state.restaurants && this.state.restaurants.length !== 0 ? this.state.restaurants.map(restaurant => (
                   <Grid item xs={5} key={restaurant.id}>
                     <RestaurantCard userId={this.props.currentUser.id} restaurantId={restaurant.id} restaurantInfo={restaurant.information} />
                   </Grid>

@@ -20,33 +20,6 @@ public class RestaurantServiceImpl implements RestaurantService, UserService<Res
   RestaurantRepository restaurantRepository;
   PasswordService passwordService = new PasswordService();
 
-  @Override
-  public List<Restaurant> getRestaurants(String query) {
-    List<Restaurant> res = new ArrayList<>();
-    for (Restaurant restaurant : restaurantRepository.findAll()) {
-      String name = restaurant.getInformation().getRestaurantName();
-      String tag1 = restaurant.getInformation().getTag1();
-      String tag2 = restaurant.getInformation().getTag2();
-      String tag3 = restaurant.getInformation().getTag3();
-      if (name.toLowerCase().contains(query.toLowerCase()) || tag1.toLowerCase()
-          .contains(query.toLowerCase()) || tag2.toLowerCase().contains(query.toLowerCase()) || tag3
-          .toLowerCase().contains(query.toLowerCase())) {
-        res.add(restaurant);
-      } else {
-        List<Dish> menu = restaurant.getMenu();
-        for (Dish dish : menu) {
-          if (dish.getDishName().toLowerCase().contains(query.toLowerCase())) {
-            res.add(restaurant);
-            break;
-          }
-        }
-      }
-    }
-    if (res.size() != 0) {
-      return res;
-    }
-    return null;
-  }
 
   @Override
   public int addDish(String id, Dish dish) {
@@ -61,6 +34,7 @@ public class RestaurantServiceImpl implements RestaurantService, UserService<Res
       set.add(dish);
       restaurant.get().setMenu(new ArrayList<>(set));
       restaurantRepository.save(restaurant.get());
+
       System.out.println("Add the dish");
       return 1;
     }
@@ -77,6 +51,7 @@ public class RestaurantServiceImpl implements RestaurantService, UserService<Res
         temp.remove(dish);
         restaurant.get().setMenu(temp);
         restaurantRepository.save(restaurant.get());
+
         System.out.println("Remove the dish");
         return 1;
       } else {
@@ -113,6 +88,7 @@ public class RestaurantServiceImpl implements RestaurantService, UserService<Res
   public int updateInfo(String id, RestaurantInfo info) {
     Optional<Restaurant> restaurant = this.getUser(id);
     if (restaurant.isPresent()) {
+
       restaurant.get().setInformation(info);
       restaurantRepository.save(restaurant.get());
       System.out.println("Update the information");

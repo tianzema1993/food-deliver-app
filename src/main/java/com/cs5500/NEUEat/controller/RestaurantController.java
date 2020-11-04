@@ -12,7 +12,9 @@ import com.cs5500.NEUEat.model.Restaurant;
 import com.cs5500.NEUEat.model.RestaurantInfo;
 import com.cs5500.NEUEat.service.OrderServiceImpl;
 import com.cs5500.NEUEat.service.RestaurantServiceImpl;
+import com.cs5500.NEUEat.service.SearchEngineServiceImpl;
 import com.google.gson.Gson;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import org.json.JSONObject;
@@ -34,22 +36,33 @@ public class RestaurantController {
 
   private final RestaurantServiceImpl restaurantService;
   private final OrderServiceImpl orderService;
+  private final SearchEngineServiceImpl searchEngineService;
 
   @Autowired
   public RestaurantController(RestaurantServiceImpl restaurantService,
-      OrderServiceImpl orderService) {
+      OrderServiceImpl orderService, SearchEngineServiceImpl searchEngineService) {
     this.restaurantService = restaurantService;
     this.orderService = orderService;
+    this.searchEngineService = searchEngineService;
   }
 
   @GetMapping(path = "/all")
   public List<Restaurant> getAllRestaurants() {
-    return this.restaurantService.getUsers();
+    return restaurantService.getUsers();
   }
 
   @GetMapping(path = "/search/" + "{query}")
   public List<Restaurant> SearchRestaurants(@PathVariable("query") String query) {
-    return this.restaurantService.getRestaurants(query);
+    List<Restaurant> res = new ArrayList<>();
+    List<String> ids = searchEngineService.searchRestaurant(query);
+    if (ids != null) {
+      for (String id : ids) {
+        if (restaurantService.getUser(id).isPresent()) {
+          res.add(restaurantService.getUser(id).get());
+        }
+      }
+    }
+    return res;
   }
 
   @GetMapping(path = "{id}")
@@ -142,11 +155,13 @@ public class RestaurantController {
     if (res == -1) {
       throw new UserNotExistException("The given restaurant doesn't exist");
     }
+    // handle search engine
+    searchEngineService.addRestaurant(dishName, restaurantId);
     return res;
   }
 
   @PostMapping(path = "/removeDish")
-  public int removeDishToMenu(@RequestBody String jsonDish)
+  public int removeDishFromMenu(@RequestBody String jsonDish)
       throws UserNotExistException, DishNotExistException {
     JSONObject dish = new JSONObject(jsonDish);
     String restaurantId = dish.getString("restaurantId");
@@ -160,6 +175,8 @@ public class RestaurantController {
     if (res == 0) {
       throw new DishNotExistException("The given dish doesn't exist");
     }
+    // handle search engine
+    searchEngineService.removeRestaurant(newDish.getDishName(), restaurantId);
     return res;
   }
 
@@ -186,6 +203,12 @@ public class RestaurantController {
     String tag3 = object.getString("tag3");
     RestaurantInfo newInfo = new RestaurantInfo(open, name, description, imageUrl, tag1, tag2,
         tag3);
+    // handle search engine
+    RestaurantInfo oldInfo = restaurantService.getInformation(restaurantId);
+    if (oldInfo != null) {
+      searchEngineService.eraseInfo(oldInfo, restaurantId);
+    }
+    searchEngineService.updateInfo(newInfo, restaurantId);
     int res = restaurantService.updateInfo(restaurantId, newInfo);
     if (res == -1) {
       throw new UserNotExistException("The given restaurant doesn't exist");
@@ -198,6 +221,15 @@ public class RestaurantController {
       throws UserNotExistException, OrderNotFinishedException {
     if (orderService.restaurantGetActiveOrders(id).size() != 0) {
       throw new OrderNotFinishedException("You still have active orders, please finish them first");
+    }
+    // handle search engine
+    RestaurantInfo oldInfo = restaurantService.getInformation(id);
+    if (oldInfo != null) {
+      searchEngineService.eraseInfo(oldInfo, id);
+    }
+    List<Dish> dishes = restaurantService.getAllDishes(id);
+    if (dishes != null) {
+      searchEngineService.eraseDishes(dishes, id);
     }
     int res = restaurantService.deleteUser(id);
     if (res == -1) {
